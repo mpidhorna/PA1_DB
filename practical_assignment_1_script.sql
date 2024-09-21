@@ -40,6 +40,7 @@ FOREIGN KEY (elective_id) REFERENCES electives(id),
 CHECK (grade BETWEEN 60 AND 100)
 );
 
+-- created tables` structure
 
 WITH students_with_electives AS (
 	SELECT concat(s.first_name, ' ', s.last_name) AS student, 
@@ -55,6 +56,7 @@ WITH students_with_electives AS (
 	JOIN grades g ON g.student_id = s.id
 )
 
+	
 SELECT elective AS name, round(avg(grade), 2) AS average_grade, count(student) AS students_enrolled
 FROM students_with_electives
 GROUP BY name
@@ -68,3 +70,4 @@ GROUP BY name
 HAVING average_grade > (SELECT avg(grade) FROM students_with_electives)
 ORDER BY students_enrolled DESC
 
+-- selected electives and programs where students got higher grades than average grade
